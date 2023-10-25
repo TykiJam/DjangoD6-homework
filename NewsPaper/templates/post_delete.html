@@ -1,0 +1,42 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+
+{% block title %}
+Статья - {{post.post_title}}
+{% endblock title %}
+
+
+{% block content %}
+    <h1>Внимание! После удаления, статью восстановить будет невозможно! </h1>
+    <hr>
+        <table>
+            <tr>
+                <td>
+                    Заголовок
+                </td>
+                <td>
+                    Дата публикации
+                </td>
+                <td>
+                    Полный текст
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="{{post.id}}"> {{ post.post_title|Censor }}</a>
+                </td>
+                <td>
+                    {{ post.adding_time|date:'d. m. Yг. H:m' }}
+                </td>
+                <td>
+                    {{ post.post_text|Censor}}
+                </td>
+            </tr>
+        </table>
+
+<form method="POST">
+    {% csrf_token%}
+    <input type="submit" value="Удалить">
+</form>
+
+{% endblock content %}
